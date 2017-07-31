@@ -1,12 +1,12 @@
 package com.danasoftware.jenkins.pipeline.libraries
 
-public void cloneSourceCode(def targetUrl, def targetDir, def credentialsID, def branchName = "origin/master", def scmClass = "GitSCM"){
+public void cloneSourceCode(def targetNode, def targetUrl, def targetDir, def credentialsID, def branchName = "origin/master", def scmClass = "GitSCM"){
   if (branchName=="" || branchName==null || branchName=="null") {
     branchName="origin/master"
   }
 
   return {
-    node {
+    node ("${targetNode}") {
       try {
         println "Starting clone for ${targetDir}:${branchName} at " + new Date()
         checkout scm: [
